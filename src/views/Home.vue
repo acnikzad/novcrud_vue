@@ -7,12 +7,25 @@
     <p>Add car color here<input type="text" v-model="newCarColor"></p>
     <p>Add car mileage here<input type="text" v-model="newCarMileage"></p>
     <p>Add car lot here<input type="text" v-model="newCarLot_id"></p>
-
     <button v-on:click="addCar()">Create Car</button>
+    <br>
+    <ul class="carList" v-for="car in cars">
+      <li>id: {{car.id}}</li>
+      <li>year: {{car.year}}</li>
+      <li>make: {{car.make}}</li>
+      <li>model: {{car.model}}</li>
+      <li>color: {{car.color}}</li>
+      <li>mileage: {{car.mileage}}</li>
+      <li>lot_id: {{car.lot_id}}</li>
+      <br>
+    </ul>
   </div>
 </template>
 
 <style>
+.carList {
+  list-style: none;
+}
 </style>
 
 <script>
@@ -40,7 +53,7 @@ export default {
   },
   methods: {
     addCar: function() {
-      console.log("fucntion made");
+      console.log("function made");
       var params = {
         year: this.newCarYear,
         make: this.newCarMake,
