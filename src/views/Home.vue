@@ -9,16 +9,18 @@
     <p>Add car lot here<input type="text" v-model="newCarLot_id"></p>
     <button v-on:click="addCar()">Create Car</button>
     <br>
-    <ul class="carList" v-for="car in cars">
-      <li>id: {{car.id}}</li>
-      <li>year: {{car.year}}</li>
-      <li>make: {{car.make}}</li>
-      <li>model: {{car.model}}</li>
-      <li>color: {{car.color}}</li>
-      <li>mileage: {{car.mileage}}</li>
-      <li>lot_id: {{car.lot_id}}</li>
-      <br>
-    </ul>
+    <div class="box" v-for="car in cars">
+      <ul class="carList">
+        <li>id: {{car.id}}</li>
+        <li>year: {{car.year}}</li>
+        <li>make: {{car.make}}</li>
+        <li>model: {{car.model}}</li>
+        <li>color: {{car.color}}</li>
+        <li>mileage: {{car.mileage}}</li>
+        <li>lot id: {{car.lot_id}}</li>
+      </ul>
+      <button v-on:click="destroyCar(car)">Delete Car</button>
+    </div>
   </div>
 </template>
 
@@ -26,6 +28,14 @@
 .carList {
   list-style: none;
 }
+
+.box {
+  border: solid;
+  border-color: #f9f9f9;
+  margin-left: 30%;
+  margin-right: 30%;
+}
+
 </style>
 
 <script>
@@ -71,6 +81,15 @@ export default {
         this.newCarModel = "";
         this.newCarColor = "";
         this.newCarMileage = "";
+      });
+    },
+
+    destroyCar: function(theCar) {
+      axios.delete(`/api/cars/${theCar.id}`).then(response => {
+        console.log(response.data);
+        var index = this.cars.indexOf(theCar);
+        console.log(index);
+        this.cars.splice(index, 1);
       });
     }
   }
